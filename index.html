@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Alla Sveriges företag som en fil du äger. 1 486 382 företag, sökbara offline på din egen dator. 5 000 kr en gång — ingen prenumeration.">
+  <meta property="og:title" content="Företagsdata — alla Sveriges företag som en fil du äger">
+  <meta property="og:description" content="Komplett, sökbar databas över svenska företag. Köp en gång, äg för alltid. 5 000 kr ex moms.">
+  <meta property="og:url" content="https://foretagsdata.spekt.se/">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://foretagsdata.spekt.se/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%2317223A'/%3E%3Crect x='14' y='58' width='72' height='22' fill='%23FFE45C'/%3E%3Ctext x='50' y='47' font-family='Helvetica,Arial,sans-serif' font-size='44' font-weight='700' fill='%23F6F7F4' text-anchor='middle'%3EFd%3C/text%3E%3C/svg%3E">
+<title>Företagsdata</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --papper: #F6F7F4;
+    --kort: #FDFDFB;
+    --black: #17223A;
+    --black-svag: #5A6478;
+    --linje: #D8DCD2;
+    --linje-stark: #B9BFB2;
+    --markering: #FFE45C;
+    --markering-text: #17223A;
+    --aktiv-bg: #DEEFE3;
+    --aktiv-text: #1E5C38;
+    --knapp-bg: #17223A;
+    --knapp-text: #F6F7F4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --papper: #12161F;
+      --kort: #1A1F2B;
+      --black: #E8EAE4;
+      --black-svag: #99A1B0;
+      --linje: #2A3140;
+      --linje-stark: #3B4356;
+      --markering: #F0D33F;
+      --markering-text: #12161F;
+      --aktiv-bg: #1C3A29;
+      --aktiv-text: #8FD3A8;
+      --knapp-bg: #E8EAE4;
+      --knapp-text: #12161F;
+    }
+  }
+  :root[data-theme="dark"] {
+    --papper: #12161F;
+    --kort: #1A1F2B;
+    --black: #E8EAE4;
+    --black-svag: #99A1B0;
+    --linje: #2A3140;
+    --linje-stark: #3B4356;
+    --markering: #F0D33F;
+    --markering-text: #12161F;
+    --aktiv-bg: #1C3A29;
+    --aktiv-text: #8FD3A8;
+    --knapp-bg: #E8EAE4;
+    --knapp-text: #12161F;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--papper);
+    color: var(--black);
+    font-family: "Familjen Grotesk", "Helvetica Neue", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  .mono {
+    font-family: "Spline Sans Mono", ui-monospace, Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .yta { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+
+  header.topp {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 22px 0 18px; border-bottom: 1px solid var(--linje);
+  }
+  .ordmarke { font-weight: 700; font-size: 1.05rem; letter-spacing: 0.01em; }
+  .ordmarke span { color: var(--black-svag); font-weight: 400; }
+  .topp nav { display: flex; gap: 22px; font-size: 0.9rem; }
+  .topp a { color: var(--black-svag); text-decoration: none; }
+  .topp a:hover, .topp a:focus-visible { color: var(--black); }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 72px 0 30px; }
+  .oga {
+    font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--black-svag); margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(2.4rem, 5.4vw, 4rem);
+    line-height: 1.04; font-weight: 700; letter-spacing: -0.015em;
+    margin: 0 0 22px; max-width: 15ch; text-wrap: balance;
+  }
+  h1 mark {
+    background: linear-gradient(0deg, var(--markering) 0%, var(--markering) 88%, transparent 88%);
+    color: var(--markering-text); padding: 0 0.08em;
+  }
+  .hero p.ingress { max-width: 58ch; font-size: 1.15rem; color: var(--black-svag); margin: 0 0 34px; }
+  .hero p.ingress strong { color: var(--black); font-weight: 600; }
+
+  .raknare { display: flex; gap: 48px; flex-wrap: wrap; margin-bottom: 44px; }
+  .raknare div { display: flex; flex-direction: column; gap: 2px; }
+  .raknare .tal { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 500; }
+  .raknare .etikett { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black-svag); }
+
+  /* registerkortet */
+  .registerkort {
+    background: var(--kort); border: 1px solid var(--linje-stark); border-radius: 3px;
+    overflow: hidden; box-shadow: 0 1px 0 var(--linje);
+  }
+  .registerkort .kortrubrik {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 10px 16px; border-bottom: 1px solid var(--linje);
+    font-size: 0.8rem; color: var(--black-svag);
+  }
+  .registerkort .kortrubrik b { color: var(--black); font-weight: 600; }
+  .tabellram { overflow-x: auto; }
+  table.register { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 640px; }
+  table.register th, table.register td { text-align: left; padding: 9px 16px; white-space: nowrap; }
+  table.register thead th {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--black-svag); font-weight: 500; border-bottom: 1px solid var(--linje);
+  }
+  table.register tbody tr { border-bottom: 1px solid var(--linje); }
+  table.register tbody tr:last-child { border-bottom: none; }
+  .pill {
+    display: inline-block; padding: 1px 9px; border-radius: 999px;
+    font-size: 0.72rem; background: var(--aktiv-bg); color: var(--aktiv-text);
+  }
+  .kortfot {
+    padding: 10px 16px; border-top: 1px solid var(--linje);
+    font-size: 0.8rem; color: var(--black-svag);
+  }
+  .kortfot b { color: var(--black); }
+
+  .rad-in { opacity: 0; transform: translateY(4px); }
+  .rad-in.syns { opacity: 1; transform: none; transition: opacity .4s ease, transform .4s ease; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rad-in { opacity: 1; transform: none; transition: none; }
+  }
+
+  .cta-rad { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin: 40px 0 0; }
+  .knapp {
+    display: inline-block; background: var(--knapp-bg); color: var(--knapp-text);
+    padding: 13px 26px; border-radius: 3px; text-decoration: none; font-weight: 600;
+    font-size: 1rem; border: 1px solid var(--knapp-bg);
+  }
+  .knapp:hover, .knapp:focus-visible { opacity: 0.88; }
+  .knapp.tunn { background: transparent; color: var(--black); border-color: var(--linje-stark); }
+  .cta-rad .not { font-size: 0.85rem; color: var(--black-svag); }
+
+  /* ---------- sektioner ---------- */
+  section.block { padding: 72px 0; border-top: 1px solid var(--linje); }
+  .blockhuvud { display: grid; grid-template-columns: 150px 1fr; gap: 24px; margin-bottom: 36px; }
+  .blockhuvud .nr {
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--black-svag); padding-top: 10px;
+  }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; letter-spacing: -0.01em; margin: 0; max-width: 24ch; text-wrap: balance; }
+  .block p { max-width: 62ch; }
+  .block p.dov { color: var(--black-svag); }
+
+  /* jämförelsen */
+  .jamforelse { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--linje-stark); border-radius: 3px; overflow: hidden; }
+  .jamforelse > div { padding: 28px; background: var(--kort); }
+  .jamforelse > div:first-child { border-right: 1px solid var(--linje); }
+  .jamforelse h3 { margin: 0 0 16px; font-size: 1rem; font-weight: 600; }
+  .jamforelse h3 small { display: block; font-weight: 400; color: var(--black-svag); font-size: 0.82rem; margin-top: 2px; }
+  .jamforelse ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.92rem; }
+  .jamforelse li { padding-left: 20px; position: relative; }
+  .jamforelse li::before { content: "—"; position: absolute; left: 0; color: var(--black-svag); }
+  .jamforelse .vi li::before { content: "■"; font-size: 0.6rem; top: 0.35em; color: var(--aktiv-text); }
+  @media (max-width: 720px) {
+    .jamforelse { grid-template-columns: 1fr; }
+    .jamforelse > div:first-child { border-right: none; border-bottom: 1px solid var(--linje); }
+    .blockhuvud { grid-template-columns: 1fr; gap: 8px; }
+  }
+
+  /* fältlistan */
+  .falt { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1px; background: var(--linje); border: 1px solid var(--linje-stark); border-radius: 3px; overflow: hidden; }
+  .falt div { background: var(--kort); padding: 16px 18px; }
+  .falt .f { font-weight: 600; font-size: 0.92rem; }
+  .falt .d { font-size: 0.82rem; color: var(--black-svag); margin-top: 2px; }
+  .urval { margin-top: 26px; font-size: 0.92rem; max-width: 66ch; }
+  .urval b { font-weight: 600; }
+
+  /* citatet */
+  .citat {
+    border-left: 3px solid var(--markering);
+    padding: 6px 0 6px 26px; margin: 0;
+    font-size: clamp(1.25rem, 2.4vw, 1.6rem); line-height: 1.4; font-weight: 500;
+    max-width: 34ch; text-wrap: balance;
+  }
+  .citat + p { margin-top: 18px; }
+
+  /* priser */
+  .priser { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: stretch; }
+  @media (max-width: 720px) { .priser { grid-template-columns: 1fr; } }
+  .pris {
+    background: var(--kort); border: 1px solid var(--linje-stark); border-radius: 3px;
+    padding: 30px; display: flex; flex-direction: column; gap: 18px;
+  }
+  .pris.huvud { border-color: var(--black); border-width: 1.5px; }
+  .pris .namn { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--black-svag); }
+  .pris .summa { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; line-height: 1; }
+  .pris .summa small { font-size: 0.95rem; font-weight: 400; color: var(--black-svag); margin-left: 6px; }
+  .pris.huvud .summa mark { background: linear-gradient(0deg, var(--markering) 0%, var(--markering) 88%, transparent 88%); color: var(--markering-text); padding: 0 0.1em; }
+  .pris ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; font-size: 0.92rem; }
+  .pris li { padding-left: 20px; position: relative; }
+  .pris li::before { content: "■"; position: absolute; left: 0; top: 0.35em; font-size: 0.6rem; color: var(--black-svag); }
+  .pris .knapp { text-align: center; margin-top: auto; }
+  .loparen {
+    margin-top: 24px; padding: 18px 22px; border: 1px dashed var(--linje-stark); border-radius: 3px;
+    font-size: 0.95rem; max-width: 100%; background: var(--kort);
+  }
+  .loparen b { font-weight: 600; }
+
+  /* steg */
+  .steg { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; counter-reset: steg; }
+  .steg div { counter-increment: steg; padding-top: 14px; border-top: 2px solid var(--black); }
+  .steg div::before { content: counter(steg, decimal-leading-zero); font-family: "Spline Sans Mono", ui-monospace, monospace; font-size: 0.8rem; color: var(--black-svag); display: block; margin-bottom: 8px; }
+  .steg b { display: block; font-size: 0.98rem; margin-bottom: 4px; }
+  .steg p { font-size: 0.88rem; color: var(--black-svag); margin: 0; }
+
+  /* faq */
+  .faq { max-width: 720px; }
+  .faq details { border-bottom: 1px solid var(--linje); }
+  .faq summary { padding: 16px 0; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  .faq summary::after { content: "+"; color: var(--black-svag); font-weight: 400; }
+  .faq details[open] summary::after { content: "–"; }
+  .faq summary:focus-visible { outline: 2px solid var(--black); outline-offset: 2px; }
+  .faq details p { margin: 0 0 18px; color: var(--black-svag); font-size: 0.95rem; }
+
+  footer.fot { border-top: 1px solid var(--linje); padding: 34px 0 54px; display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; font-size: 0.85rem; color: var(--black-svag); }
+  footer.fot a { color: var(--black); text-decoration: none; border-bottom: 1px solid var(--linje-stark); }
+  footer.fot a:hover { border-color: var(--black); }
+</style>
+</head>
+<body>
+<div class="yta">
+  <header class="topp">
+    <div class="ordmarke">Företagsdata <span>· SPEKT</span></div>
+    <nav>
+      <a href="#innehall">Vad ingår</a>
+      <a href="#pris">Pris</a>
+      <a href="#fragor">Frågor</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="oga">Sveriges företagsregister · som produkt, inte prenumeration</div>
+    <h1>Alla Sveriges företag. <mark>Som en fil du äger.</mark></h1>
+    <p class="ingress">En komplett, sökbar databas över svenska företag — levererad som en app med
+    databasen <strong>lokalt på din dator</strong>. Inga konton. Inga uppslagstak. Ingen server som
+    kan stängas av. Köp en gång, använd för alltid.</p>
+
+    <div class="raknare mono">
+      <div><span class="tal" id="stortal" data-mal="1486382">0</span><span class="etikett">företag</span></div>
+      <div><span class="tal">&lt; 150 ms</span><span class="etikett">per sökning, lokalt</span></div>
+      <div><span class="tal">1 ×</span><span class="etikett">betalning — sen ditt</span></div>
+    </div>
+
+    <div class="registerkort">
+      <div class="kortrubrik mono"><span>sökning: <b>”aktiva byggbolag i Skåne”</b></span><span>8 760 träffar · 77 ms</span></div>
+      <div class="tabellram">
+        <table class="register mono">
+          <thead><tr><th>Org.nr</th><th>Namn</th><th>Ort</th><th>Bransch</th><th>Status</th></tr></thead>
+          <tbody id="exempelrader">
+            <tr class="rad-in"><td>556234-7426</td><td>Icehotel Aktiebolag</td><td>Jukkasjärvi</td><td>Hotell och logi</td><td><span class="pill">aktiv</span></td></tr>
+            <tr class="rad-in"><td>556857-1276</td><td>BEFEM AB</td><td>Malmö</td><td>Öppna sociala insatser</td><td><span class="pill">aktiv</span></td></tr>
+            <tr class="rad-in"><td>556956-8918</td><td>LocalOffice Sweden AB</td><td>Malmö</td><td>Managementkonsult</td><td><span class="pill">aktiv</span></td></tr>
+            <tr class="rad-in"><td>556250-0396</td><td>Karesuando Silver Aktiebolag</td><td>Karesuando</td><td>Annan tillverkning</td><td><span class="pill">aktiv</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="kortfot mono">status · SNI + bransch · adress · kommun · län · koordinater · verksamhetsbeskrivning · reg.datum — <b>exportera allt till CSV/Excel, obegränsat</b></div>
+    </div>
+
+    <div class="cta-rad">
+      <a class="knapp" href="mailto:linus@spekt.se?subject=Företagsdata">Köp Företagsdata — 5 000 kr</a>
+      <a class="knapp tunn" href="#innehall">Se vad som ingår</a>
+      <span class="not">ex moms · macOS (Windows på väg)</span>
+    </div>
+  </section>
+
+  <section class="block" id="varfor">
+    <div class="blockhuvud">
+      <div class="nr">Varför köpa</div>
+      <h2>Alla andra hyr ut företagsdata. Vi säljer den.</h2>
+    </div>
+    <div class="jamforelse">
+      <div>
+        <h3>Prenumerationstjänsterna <small>så funkar branschen idag</small></h3>
+        <ul>
+          <li>Några hundra kronor i månaden — för evigt</li>
+          <li>Uppslagstak och exportbegränsningar</li>
+          <li>Slutar du betala står du med ingenting</li>
+          <li>Din prospektering loggas på deras server</li>
+        </ul>
+      </div>
+      <div class="vi">
+        <h3>Företagsdata <small>så tycker vi att det borde funka</small></h3>
+        <ul>
+          <li>5 000 kr en gång — datat är ditt efteråt</li>
+          <li>Obegränsad sökning och export, offline</li>
+          <li>Slutar du uppdatera behåller du allt</li>
+          <li>Allt sker lokalt på din dator</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="innehall">
+    <div class="blockhuvud">
+      <div class="nr">Vad ingår</div>
+      <h2>Ett fält i taget — det här vet databasen om varje företag</h2>
+    </div>
+    <div class="falt">
+      <div><div class="f">Status i klartext</div><div class="d">aktiv, konkurs, likvidation, avregistrerad — med datum</div></div>
+      <div><div class="f">SNI-kod + bransch</div><div class="d">femsiffrig kod och branschen i klartext</div></div>
+      <div><div class="f">Verksamhetsbeskrivning</div><div class="d">fritextsökbar för 1,27 miljoner företag</div></div>
+      <div><div class="f">Adress &amp; ort</div><div class="d">postadress ur Bolagsverkets färskaste fil</div></div>
+      <div><div class="f">Kommun &amp; län</div><div class="d">97 % täckning — filtrera på Vellinge, inte bara Skåne</div></div>
+      <div><div class="f">Koordinater</div><div class="d">lat/lng på kartan för 1,44 miljoner företag</div></div>
+      <div><div class="f">Bolagsform</div><div class="d">AB, HB, KB, föreningar, stiftelser, filialer</div></div>
+      <div><div class="f">Registreringsdatum</div><div class="d">hitta nystartade — eller de som funnits i 50 år</div></div>
+    </div>
+    <p class="urval dov"><b>Medvetet bortvalt:</b> enskilda firmor (deras orgnr är personnummer — du slipper
+    GDPR-risken), reklamspärrade företag (spärren respekteras) och bolag avregistrerade före 2015.
+    Det som finns i databasen är sådant du faktiskt får och kan göra affärer med.</p>
+  </section>
+
+  <section class="block">
+    <div class="blockhuvud">
+      <div class="nr">Ärligt talat</div>
+      <h2>Vad du egentligen betalar för</h2>
+    </div>
+    <blockquote class="citat">”Datan är offentlig. Du hade kunnat samla ihop den själv. Det du betalar för
+    är att jag redan har gjort det, gjort den användbar — och håller den färsk så att du slipper
+    tänka på det igen.”</blockquote>
+    <p class="dov">Källorna är Bolagsverkets och SCB:s öppna datamängder, som uppdateras varje vecka.
+    Ovanpå dem ligger vårt eget arbete: statusar i klartext, kommuner och koordinater, dubblettvättning,
+    och en app som söker igenom alltihop på under en tiondels sekund.</p>
+  </section>
+
+  <section class="block" id="pris">
+    <div class="blockhuvud">
+      <div class="nr">Pris</div>
+      <h2>En prislapp för datat. En frivillig för färskheten.</h2>
+    </div>
+    <div class="priser">
+      <div class="pris huvud">
+        <div class="namn">Företagsdata</div>
+        <div class="summa"><mark>5 000 kr</mark><small>engångsköp · ex moms</small></div>
+        <ul>
+          <li>Hela databasen — 1 486 382 företag</li>
+          <li>Mac-appen: sök, filtrera, segmentera</li>
+          <li>Obegränsad export till CSV/Excel</li>
+          <li>Fungerar offline, för alltid — ingen kill switch</li>
+        </ul>
+        <a class="knapp" href="mailto:linus@spekt.se?subject=Företagsdata">Köp nu</a>
+      </div>
+      <div class="pris">
+        <div class="namn">Uppdateringar</div>
+        <div class="summa">2 000 kr<small>per år · frivilligt</small></div>
+        <ul>
+          <li>Färsk data varje vecka</li>
+          <li>Konkurser, likvidationer, adressbyten</li>
+          <li>Nyregistrerade företag</li>
+          <li>Nya appfunktioner när de släpps</li>
+        </ul>
+        <a class="knapp tunn" href="mailto:linus@spekt.se?subject=Företagsdata uppdateringar">Läggs till vid köpet</a>
+      </div>
+    </div>
+    <div class="loparen"><b>Och om du slutar betala?</b> Appen fortsätter fungera, din senaste databas
+    finns kvar och exporten är fortsatt obegränsad. Det enda som upphör är framtida uppdateringar.
+    Det är vad ”äga” betyder.</div>
+  </section>
+
+  <section class="block">
+    <div class="blockhuvud">
+      <div class="nr">Så går det till</div>
+      <h2>Från köp till sökbar databas på en kvart</h2>
+    </div>
+    <div class="steg">
+      <div><b>Köp</b><p>Betala med kort eller faktura. Moms tillkommer.</p></div>
+      <div><b>Licensnyckel</b><p>Kommer på mejl direkt efter köpet.</p></div>
+      <div><b>Ladda ner</b><p>Appen hämtar databasen åt dig vid första start.</p></div>
+      <div><b>Ditt</b><p>Sök, segmentera, exportera — utan att fråga någon om lov.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="fragor">
+    <div class="blockhuvud">
+      <div class="nr">Frågor</div>
+      <h2>Det folk brukar undra</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Får jag använda datat kommersiellt?</summary>
+        <p>Ja — prospektering, analys, segmentering och utskick i din egen verksamhet. Det du inte får
+        göra är att sälja databasen vidare som den är.</p>
+      </details>
+      <details>
+        <summary>Hur är det med GDPR?</summary>
+        <p>Databasen innehåller företagsuppgifter från öppna myndighetskällor — inga personnummer och
+        inga enskilda firmor (vars orgnr är personnummer). Reklamspärrade företag är bortfiltrerade.</p>
+      </details>
+      <details>
+        <summary>Finns det till Windows?</summary>
+        <p>Mac först. Windows-versionen byggs när efterfrågan finns — säg till, så räknas din röst.</p>
+      </details>
+      <details>
+        <summary>Hur färsk är datan när jag köper?</summary>
+        <p>Snapshotten du får är som mest en vecka gammal — källorna uppdateras varje vecka och
+        databasen paketeras om efter varje uppdatering.</p>
+      </details>
+      <details>
+        <summary>Var kommer datan ifrån?</summary>
+        <p>Bolagsverkets och SCB:s öppna värdefulla datamängder, kompletterade med egna berikningar:
+        kommuner, län, koordinater och statusar i klartext.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer class="fot">
+    <div>© SPEKT AB · Malmö</div>
+    <div><a href="mailto:linus@spekt.se">linus@spekt.se</a></div>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var reducerad = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var el = document.getElementById("stortal");
+    var mal = parseInt(el.dataset.mal, 10);
+    function visa(v) { el.textContent = v.toLocaleString("sv-SE"); }
+    if (reducerad) { visa(mal); }
+    else {
+      var start = null;
+      function steg(t) {
+        if (!start) start = t;
+        var k = Math.min(1, (t - start) / 1400);
+        visa(Math.round(mal * (1 - Math.pow(1 - k, 3))));
+        if (k < 1) requestAnimationFrame(steg);
+      }
+      requestAnimationFrame(steg);
+    }
+    var rader = document.querySelectorAll(".rad-in");
+    rader.forEach(function (r, i) {
+      setTimeout(function () { r.classList.add("syns"); }, reducerad ? 0 : 250 + i * 160);
+    });
+  })();
+</script>
+</body>
+</html>
