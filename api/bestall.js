@@ -61,28 +61,38 @@ export default async function handler(req, res) {
   }
 
   // spegla beställningen till Business hub (foretagsdata_kunder, status "beställd").
-  // Mejlet är huvudkanalen — ett hubbfel får aldrig fälla beställningen.
+  // Mejlet är huvudkanalen — ett hubbfel får aldrig fälla beställningen, men
+  // utfallet rapporteras i svaret så det går att felsöka.
+  let hubb = "hoppad — HUB_API_KEY saknas";
   const hubNyckel = process.env.HUB_API_KEY;
   if (hubNyckel) {
     try {
-      await fetch("https://pcdrqbyxrgsfzykpocid.supabase.co/functions/v1/hub-api", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${hubNyckel}`,
-          "Content-Type": "application/json",
+      const hubSvar = await fetch(
+        "https://pcdrqbyxrgsfzykpocid.supabase.co/functions/v1/hub-api",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${hubNyckel}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            action: "add_foretagsdata_bestallning",
+            bolag: b,
+            orgnr: onr,
+            bestallare: best,
+            epost: e,
+            plattform: plat,
+            uppdateringar: upp,
+            meddelande: m,
+          }),
         },
-        body: JSON.stringify({
-          action: "add_foretagsdata_bestallning",
-          bolag: b,
-          orgnr: onr,
-          bestallare: best,
-          epost: e,
-          plattform: plat,
-          uppdateringar: upp,
-          meddelande: m,
-        }),
-      });
-    } catch { /* tyst — beställningen är redan säkrad via mejlet */ }
+      );
+      hubb = hubSvar.ok
+        ? "ok"
+        : `fel ${hubSvar.status}: ${(await hubSvar.text()).slice(0, 200)}`;
+    } catch (fel) {
+      hubb = `fel: ${String(fel).slice(0, 200)}`;
+    }
   }
-  return res.status(200).json({ ok: true });
+  return res.status(200).json({ ok: true, hubb });
 }
