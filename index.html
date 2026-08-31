@@ -156,6 +156,20 @@
   .cta-rad .not { font-size: 0.85rem; color: var(--black-svag); }
   .mejlfallback { font-size: 0.8rem; color: var(--black-svag); margin: 0.6rem 0 0; }
   .mejlfallback a { color: inherit; text-decoration: underline; }
+  .bestallform { max-width: 560px; display: grid; gap: 0.9rem; }
+  .bestallform label { display: grid; gap: 0.35rem; font-size: 0.85rem; font-weight: 600; color: var(--black-svag); }
+  .bestallform input, .bestallform textarea {
+    background: var(--kort); border: 1px solid var(--linje-stark); border-radius: 3px;
+    padding: 11px 12px; font: inherit; color: var(--black); width: 100%;
+  }
+  .bestallform input:focus-visible, .bestallform textarea:focus-visible {
+    outline: 2px solid var(--markering); outline-offset: 1px;
+  }
+  .bestallform .honung { position: absolute; left: -5000px; width: 1px; height: 1px; opacity: 0; }
+  .bestallform button { cursor: pointer; justify-self: start; }
+  .bestallform button:disabled { opacity: 0.6; cursor: default; }
+  #bestall-svar { font-size: 0.9rem; min-height: 1.3em; margin: 0; color: var(--black-svag); }
+  #bestall-svar.klart { color: var(--aktiv-text); font-weight: 600; }
 
   /* ---------- sektioner ---------- */
   section.block { padding: 72px 0; border-top: 1px solid var(--linje); }
@@ -285,7 +299,7 @@
     </div>
 
     <div class="cta-rad">
-      <a class="knapp" href="mailto:linus@spekt.se?subject=Best%C3%A4llning%20F%C3%B6retagsdata&amp;body=Bolag%3A%20%0AOrgnr%3A%20%0AFakturamejl%3A%20%0AUppdateringar%202%20000%20kr%2F%C3%A5r%3A%20ja%2Fnej">Beställ Företagsdata — 5 000 kr</a>
+      <a class="knapp" href="#bestall">Beställ Företagsdata — 5 000 kr</a>
       <a class="knapp tunn" href="#innehall">Se vad som ingår</a>
       <span class="not">ex moms · betalning mot faktura · macOS &amp; Windows</span>
     </div>
@@ -364,9 +378,7 @@
           <li>Obegränsad export till CSV/Excel</li>
           <li>Fungerar offline, för alltid — ingen kill switch</li>
         </ul>
-        <a class="knapp" href="mailto:linus@spekt.se?subject=Best%C3%A4llning%20F%C3%B6retagsdata&amp;body=Bolag%3A%20%0AOrgnr%3A%20%0AFakturamejl%3A%20%0AUppdateringar%202%20000%20kr%2F%C3%A5r%3A%20ja%2Fnej">Beställ via mejl</a>
-        <p class="not mejlfallback">Öppnas inget mejlfönster? Mejla <b>linus@spekt.se</b>
-        — <a href="#" id="kopiera-mall">kopiera beställningsmallen</a></p>
+        <a class="knapp" href="#bestall">Beställ</a>
       </div>
       <div class="pris">
         <div class="namn">Uppdateringar</div>
@@ -377,7 +389,7 @@
           <li>Nyregistrerade företag</li>
           <li>Nya appfunktioner när de släpps</li>
         </ul>
-        <a class="knapp tunn" href="mailto:linus@spekt.se?subject=Best%C3%A4llning%20F%C3%B6retagsdata&amp;body=Bolag%3A%20%0AOrgnr%3A%20%0AFakturamejl%3A%20%0AUppdateringar%202%20000%20kr%2F%C3%A5r%3A%20ja">Läggs till på samma faktura</a>
+        <a class="knapp tunn" href="#bestall">Läggs till på samma faktura</a>
       </div>
     </div>
     <div class="loparen"><b>Och om du slutar betala?</b> Appen fortsätter fungera, din senaste databas
@@ -391,11 +403,34 @@
       <h2>Beställningen går via mejl — inga kortuppgifter någonstans</h2>
     </div>
     <div class="steg">
-      <div><b>Mejla</b><p>Skriv vilket bolag fakturan ska ställas till.</p></div>
+      <div><b>Beställ</b><p>Fyll i formuläret — skriv vilket bolag fakturan ska ställas till.</p></div>
       <div><b>Faktura</b><p>5 000 kr + moms, 10 dagars betalvillkor.</p></div>
       <div><b>Leverans</b><p>Personlig nedladdningslänk på mejl när fakturan är betald.</p></div>
       <div><b>Ditt</b><p>En fil — app och databas i ett. Sök, exportera, äg.</p></div>
     </div>
+  </section>
+
+  <section class="block" id="bestall">
+    <div class="blockhuvud">
+      <div class="nr">Beställ</div>
+      <h2>Beställ — eller ställ en fråga först</h2>
+    </div>
+    <form class="bestallform" id="bestallform" novalidate>
+      <label>Bolag
+        <input name="bolag" required maxlength="200" placeholder="Bolaget fakturan ska ställas till" />
+      </label>
+      <label>E-post
+        <input name="epost" type="email" required maxlength="200" placeholder="Dit fakturan och nedladdningslänken ska" />
+      </label>
+      <label>Meddelande
+        <textarea name="meddelande" rows="5" maxlength="5000" placeholder="Orgnr, plattform (Mac/Windows/båda), uppdateringar 2 000 kr/år ja/nej — eller bara din fråga"></textarea>
+      </label>
+      <input class="honung" name="honung" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <button class="knapp" type="submit" id="bestall-skicka">Skicka</button>
+      <p class="not" id="bestall-svar" role="status"></p>
+      <p class="mejlfallback">Föredrar du mejl? <b>linus@spekt.se</b>
+      — <a href="#" id="kopiera-mall">kopiera beställningsmallen</a></p>
+    </form>
   </section>
 
   <section class="block" id="fragor">
@@ -457,6 +492,43 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(mall).then(klart, function () {});
       } else { window.prompt("Kopiera mallen:", mall); }
+    });
+
+    // beställningsformuläret → /api/bestall → mejl via Resend
+    var form = document.getElementById("bestallform");
+    if (form) form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var knapp = document.getElementById("bestall-skicka");
+      var svar = document.getElementById("bestall-svar");
+      var data = {
+        bolag: form.elements.bolag.value.trim(),
+        epost: form.elements.epost.value.trim(),
+        meddelande: form.elements.meddelande.value.trim(),
+        honung: form.elements.honung.value,
+      };
+      svar.classList.remove("klart");
+      if (!data.bolag) { svar.textContent = "Ange bolagsnamn."; return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.epost)) {
+        svar.textContent = "Ange en giltig e-postadress."; return;
+      }
+      knapp.disabled = true;
+      knapp.textContent = "skickar …";
+      fetch("/api/bestall", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          if (res.ok) {
+            svar.classList.add("klart");
+            svar.textContent = "Tack! Beställningen är skickad — du hör från oss inom en arbetsdag.";
+            form.reset();
+          } else {
+            svar.textContent = (res.j && res.j.fel) || "Något gick fel — mejla linus@spekt.se.";
+          }
+        })
+        .catch(function () { svar.textContent = "Något gick fel — mejla linus@spekt.se."; })
+        .then(function () { knapp.disabled = false; knapp.textContent = "Skicka"; });
     });
 
     var reducerad = matchMedia("(prefers-reduced-motion: reduce)").matches;
