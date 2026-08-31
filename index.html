@@ -157,6 +157,15 @@
   .mejlfallback { font-size: 0.8rem; color: var(--black-svag); margin: 0.6rem 0 0; }
   .mejlfallback a { color: inherit; text-decoration: underline; }
   .bestallform { max-width: 560px; display: grid; gap: 0.9rem; }
+  .bestallform .tvafalt { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+  @media (max-width: 560px) { .bestallform .tvafalt { grid-template-columns: 1fr; } }
+  .bestallform select {
+    background: var(--kort); border: 1px solid var(--linje-stark); border-radius: 3px;
+    padding: 11px 12px; font: inherit; color: var(--black); width: 100%;
+  }
+  .bestallform .kryss { display: flex; gap: 0.6rem; align-items: flex-start; font-weight: 400; }
+  .bestallform .kryss input { width: auto; margin-top: 0.2rem; }
+  .bestallform .valfritt { font-weight: 400; }
   .bestallform label { display: grid; gap: 0.35rem; font-size: 0.85rem; font-weight: 600; color: var(--black-svag); }
   .bestallform input, .bestallform textarea {
     background: var(--kort); border: 1px solid var(--linje-stark); border-radius: 3px;
@@ -416,17 +425,38 @@
       <h2>Beställ — eller ställ en fråga först</h2>
     </div>
     <form class="bestallform" id="bestallform" novalidate>
-      <label>Bolag
-        <input name="bolag" required maxlength="200" placeholder="Bolaget fakturan ska ställas till" />
+      <div class="tvafalt">
+        <label>Bolag
+          <input name="bolag" required maxlength="200" placeholder="Bolaget fakturan ställs till" />
+        </label>
+        <label>Organisationsnummer
+          <input name="orgnr" required maxlength="20" inputmode="numeric" placeholder="XXXXXX-XXXX" />
+        </label>
+      </div>
+      <div class="tvafalt">
+        <label>Beställare
+          <input name="bestallare" required maxlength="200" placeholder="Namn på dig som beställer" autocomplete="name" />
+        </label>
+        <label>E-post
+          <input name="epost" type="email" required maxlength="200" placeholder="Dit fakturan och nedladdningslänken ska" autocomplete="email" />
+        </label>
+      </div>
+      <label>Plattform
+        <select name="plattform">
+          <option value="Mac">Mac</option>
+          <option value="Windows">Windows</option>
+          <option value="Båda">Båda</option>
+        </select>
       </label>
-      <label>E-post
-        <input name="epost" type="email" required maxlength="200" placeholder="Dit fakturan och nedladdningslänken ska" />
+      <label class="kryss">
+        <input type="checkbox" name="uppdateringar" />
+        <span>Ja, jag vill ha uppdateringar — färsk databas varje månad, 2 000 kr/år (frivilligt, kan sägas upp när som helst)</span>
       </label>
-      <label>Meddelande
-        <textarea name="meddelande" rows="5" maxlength="5000" placeholder="Orgnr, plattform (Mac/Windows/båda), uppdateringar 2 000 kr/år ja/nej — eller bara din fråga"></textarea>
+      <label>Meddelande <span class="valfritt">(valfritt)</span>
+        <textarea name="meddelande" rows="3" maxlength="5000" placeholder="Frågor eller annat vi bör veta"></textarea>
       </label>
       <input class="honung" name="honung" tabindex="-1" autocomplete="off" aria-hidden="true" />
-      <button class="knapp" type="submit" id="bestall-skicka">Skicka</button>
+      <button class="knapp" type="submit" id="bestall-skicka">Skicka beställningen</button>
       <p class="not" id="bestall-svar" role="status"></p>
       <p class="mejlfallback">Föredrar du mejl? <b>linus@spekt.se</b>
       — <a href="#" id="kopiera-mall">kopiera beställningsmallen</a></p>
@@ -486,7 +516,7 @@
     if (kopiera) kopiera.addEventListener("click", function (e) {
       e.preventDefault();
       var mall = "Till: linus@spekt.se\nÄmne: Beställning Företagsdata\n\n" +
-                 "Bolag: \nOrgnr: \nFakturamejl: \nPlattform: Mac / Windows\n" +
+                 "Bolag: \nOrgnr: \nBeställare: \nE-post: \nPlattform: Mac / Windows / Båda\n" +
                  "Uppdateringar 2 000 kr/år: ja/nej";
       function klart() { kopiera.textContent = "mallen kopierad ✓"; }
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -502,12 +532,20 @@
       var svar = document.getElementById("bestall-svar");
       var data = {
         bolag: form.elements.bolag.value.trim(),
+        orgnr: form.elements.orgnr.value.trim(),
+        bestallare: form.elements.bestallare.value.trim(),
         epost: form.elements.epost.value.trim(),
+        plattform: form.elements.plattform.value,
+        uppdateringar: form.elements.uppdateringar.checked,
         meddelande: form.elements.meddelande.value.trim(),
         honung: form.elements.honung.value,
       };
       svar.classList.remove("klart");
       if (!data.bolag) { svar.textContent = "Ange bolagsnamn."; return; }
+      if (data.orgnr.replace(/\D/g, "").length !== 10) {
+        svar.textContent = "Ange organisationsnumret — tio siffror (XXXXXX-XXXX)."; return;
+      }
+      if (!data.bestallare) { svar.textContent = "Ange vem som beställer."; return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.epost)) {
         svar.textContent = "Ange en giltig e-postadress."; return;
       }

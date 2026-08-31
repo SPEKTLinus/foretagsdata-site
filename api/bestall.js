@@ -4,16 +4,27 @@ export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ fel: "endast POST" });
   }
-  const { bolag, epost, meddelande, honung } = req.body ?? {};
+  const { bolag, orgnr, bestallare, epost, plattform, uppdateringar, meddelande, honung } =
+    req.body ?? {};
 
   // honungsfältet är osynligt för människor — bottar som fyller i det får "ok"
   if (honung) return res.status(200).json({ ok: true });
 
   const b = String(bolag ?? "").trim();
+  const onr = String(orgnr ?? "").replace(/\D/g, "");
+  const best = String(bestallare ?? "").trim();
   const e = String(epost ?? "").trim();
+  const plat = ["Mac", "Windows", "Båda"].includes(plattform) ? plattform : "Mac";
+  const upp = uppdateringar === true;
   const m = String(meddelande ?? "").trim().slice(0, 5000);
   if (!b || b.length > 200) {
     return res.status(400).json({ fel: "Ange bolagsnamn." });
+  }
+  if (onr.length !== 10) {
+    return res.status(400).json({ fel: "Ange organisationsnumret — tio siffror." });
+  }
+  if (!best || best.length > 200) {
+    return res.status(400).json({ fel: "Ange vem som beställer." });
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) || e.length > 200) {
     return res.status(400).json({ fel: "Ange en giltig e-postadress." });
@@ -32,9 +43,15 @@ export default async function handler(req, res) {
       from: "SPEKT Företagsdata <leverans@spekt.se>",
       to: ["linus@spekt.se"],
       reply_to: e,
-      subject: `Beställning/kontakt: ${b}`,
+      subject: `Beställning: ${b} (${onr.slice(0, 6)}-${onr.slice(6)})`,
       text:
-        `Bolag: ${b}\nE-post: ${e}\n\n${m || "(inget meddelande)"}\n\n` +
+        `Bolag: ${b}\n` +
+        `Orgnr: ${onr.slice(0, 6)}-${onr.slice(6)}\n` +
+        `Beställare: ${best}\n` +
+        `E-post: ${e}\n` +
+        `Plattform: ${plat}\n` +
+        `Uppdateringar 2 000 kr/år: ${upp ? "JA" : "nej"}\n\n` +
+        `${m || "(inget meddelande)"}\n\n` +
         `— skickat från formuläret på foretagsdata.spekt.se`,
     }),
   });
