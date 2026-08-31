@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ fel: "endast POST" });
   }
-  const { bolag, orgnr, bestallare, epost, plattform, uppdateringar, meddelande, honung } =
+  const { bolag, orgnr, bestallare, telefon, epost, plattform, uppdateringar, meddelande, honung } =
     req.body ?? {};
 
   // honungsfältet är osynligt för människor — bottar som fyller i det får "ok"
@@ -25,6 +25,10 @@ export default async function handler(req, res) {
   }
   if (!best || best.length > 200) {
     return res.status(400).json({ fel: "Ange vem som beställer." });
+  }
+  const tel = String(telefon ?? "").trim().slice(0, 30);
+  if (tel.replace(/\D/g, "").length < 7) {
+    return res.status(400).json({ fel: "Ange ett telefonnummer." });
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) || e.length > 200) {
     return res.status(400).json({ fel: "Ange en giltig e-postadress." });
@@ -48,6 +52,7 @@ export default async function handler(req, res) {
         `Bolag: ${b}\n` +
         `Orgnr: ${onr.slice(0, 6)}-${onr.slice(6)}\n` +
         `Beställare: ${best}\n` +
+        `Telefon: ${tel}\n` +
         `E-post: ${e}\n` +
         `Plattform: ${plat}\n` +
         `Uppdateringar 2 000 kr/år: ${upp ? "JA" : "nej"}\n\n` +
@@ -80,6 +85,7 @@ export default async function handler(req, res) {
             bolag: b,
             orgnr: onr,
             bestallare: best,
+            telefon: tel,
             epost: e,
             plattform: plat,
             uppdateringar: upp,

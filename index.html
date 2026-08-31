@@ -437,16 +437,21 @@
         <label>Beställare
           <input name="bestallare" required maxlength="200" placeholder="Namn på dig som beställer" autocomplete="name" />
         </label>
+        <label>Telefon
+          <input name="telefon" type="tel" required maxlength="30" placeholder="Så vi kan nå dig om något är oklart" autocomplete="tel" />
+        </label>
+      </div>
+      <div class="tvafalt">
         <label>E-post
           <input name="epost" type="email" required maxlength="200" placeholder="Dit fakturan och nedladdningslänken ska" autocomplete="email" />
         </label>
+        <label>Plattform
+          <select name="plattform">
+            <option value="Mac">Mac</option>
+            <option value="Windows">Windows</option>
+          </select>
+        </label>
       </div>
-      <label>Plattform
-        <select name="plattform">
-          <option value="Mac">Mac</option>
-          <option value="Windows">Windows</option>
-        </select>
-      </label>
       <label class="kryss">
         <input type="checkbox" name="uppdateringar" />
         <span>Ja, jag vill ha uppdateringar — färsk databas varje månad, 2 000 kr/år (frivilligt, kan sägas upp när som helst)</span>
@@ -514,7 +519,7 @@
     if (kopiera) kopiera.addEventListener("click", function (e) {
       e.preventDefault();
       var mall = "Till: linus@spekt.se\nÄmne: Beställning Företagsdata\n\n" +
-                 "Bolag: \nOrgnr: \nBeställare: \nE-post: \nPlattform: Mac / Windows\n" +
+                 "Bolag: \nOrgnr: \nBeställare: \nTelefon: \nE-post: \nPlattform: Mac / Windows\n" +
                  "Uppdateringar 2 000 kr/år: ja/nej";
       function klart() { kopiera.textContent = "mallen kopierad ✓"; }
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -532,6 +537,7 @@
         bolag: form.elements.bolag.value.trim(),
         orgnr: form.elements.orgnr.value.trim(),
         bestallare: form.elements.bestallare.value.trim(),
+        telefon: form.elements.telefon.value.trim(),
         epost: form.elements.epost.value.trim(),
         plattform: form.elements.plattform.value,
         uppdateringar: form.elements.uppdateringar.checked,
@@ -544,6 +550,9 @@
         svar.textContent = "Ange organisationsnumret — tio siffror (XXXXXX-XXXX)."; return;
       }
       if (!data.bestallare) { svar.textContent = "Ange vem som beställer."; return; }
+      if (data.telefon.replace(/\D/g, "").length < 7) {
+        svar.textContent = "Ange ett telefonnummer."; return;
+      }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.epost)) {
         svar.textContent = "Ange en giltig e-postadress."; return;
       }
