@@ -445,7 +445,6 @@
         <select name="plattform">
           <option value="Mac">Mac</option>
           <option value="Windows">Windows</option>
-          <option value="Båda">Båda</option>
         </select>
       </label>
       <label class="kryss">
@@ -487,8 +486,7 @@
       </details>
       <details>
         <summary>Finns det till Windows?</summary>
-        <p>Ja. Appen finns till både macOS och Windows — säg vid beställningen vilken du vill ha,
-        eller båda. Samma köp, samma databas.</p>
+        <p>Ja. Appen finns till både macOS och Windows — välj plattform när du beställer.</p>
       </details>
       <details>
         <summary>Hur färsk är datan när jag köper?</summary>
@@ -516,7 +514,7 @@
     if (kopiera) kopiera.addEventListener("click", function (e) {
       e.preventDefault();
       var mall = "Till: linus@spekt.se\nÄmne: Beställning Företagsdata\n\n" +
-                 "Bolag: \nOrgnr: \nBeställare: \nE-post: \nPlattform: Mac / Windows / Båda\n" +
+                 "Bolag: \nOrgnr: \nBeställare: \nE-post: \nPlattform: Mac / Windows\n" +
                  "Uppdateringar 2 000 kr/år: ja/nej";
       function klart() { kopiera.textContent = "mallen kopierad ✓"; }
       if (navigator.clipboard && navigator.clipboard.writeText) {

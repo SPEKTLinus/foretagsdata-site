@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   const onr = String(orgnr ?? "").replace(/\D/g, "");
   const best = String(bestallare ?? "").trim();
   const e = String(epost ?? "").trim();
-  const plat = ["Mac", "Windows", "Båda"].includes(plattform) ? plattform : "Mac";
+  const plat = ["Mac", "Windows"].includes(plattform) ? plattform : "Mac";
   const upp = uppdateringar === true;
   const m = String(meddelande ?? "").trim().slice(0, 5000);
   if (!b || b.length > 200) {
