@@ -285,7 +285,7 @@
     <div class="cta-rad">
       <a class="knapp" href="mailto:linus@spekt.se?subject=Best%C3%A4llning%20F%C3%B6retagsdata&amp;body=Bolag%3A%20%0AOrgnr%3A%20%0AFakturamejl%3A%20%0AUppdateringar%202%20000%20kr%2F%C3%A5r%3A%20ja%2Fnej">Beställ Företagsdata — 5 000 kr</a>
       <a class="knapp tunn" href="#innehall">Se vad som ingår</a>
-      <span class="not">ex moms · betalning mot faktura · macOS (Windows på väg)</span>
+      <span class="not">ex moms · betalning mot faktura · macOS &amp; Windows</span>
     </div>
   </section>
 
@@ -338,15 +338,13 @@
 
   <section class="block">
     <div class="blockhuvud">
-      <div class="nr">Ärligt talat</div>
-      <h2>Vad du egentligen betalar för</h2>
+      <div class="nr">Källor &amp; förädling</div>
+      <h2>Officiella källor, förädlade till ett arbetsverktyg</h2>
     </div>
-    <blockquote class="citat">”Datan är offentlig. Du hade kunnat samla ihop den själv. Det du betalar för
-    är att jag redan har gjort det, gjort den användbar — och håller den färsk så att du slipper
-    tänka på det igen.”</blockquote>
-    <p class="dov">Källorna är Bolagsverkets och SCB:s öppna datamängder, som uppdateras varje vecka.
-    Ovanpå dem ligger vårt eget arbete: statusar i klartext, kommuner och koordinater, dubblettvättning,
-    och en app som söker igenom alltihop på under en tiondels sekund.</p>
+    <p class="dov">Grunddatat kommer från Bolagsverkets och SCB:s officiella datamängder och hämtas in
+    varje vecka. Ovanpå källorna ligger ett eget förädlingslager: statusar i klartext, kommun- och
+    länstillhörighet, koordinater till kartvyn, dubblettvättning och kvalitetskontroller mot kända
+    referensvärden — paketerat i en app som söker igenom hela registret på under en tiondels sekund.</p>
   </section>
 
   <section class="block" id="pris">
@@ -365,6 +363,8 @@
           <li>Fungerar offline, för alltid — ingen kill switch</li>
         </ul>
         <a class="knapp" href="mailto:linus@spekt.se?subject=Best%C3%A4llning%20F%C3%B6retagsdata&amp;body=Bolag%3A%20%0AOrgnr%3A%20%0AFakturamejl%3A%20%0AUppdateringar%202%20000%20kr%2F%C3%A5r%3A%20ja%2Fnej">Beställ via mejl</a>
+        <p class="not mejlfallback">Öppnas inget mejlfönster? Mejla <b>linus@spekt.se</b>
+        — <a href="#" id="kopiera-mall">kopiera beställningsmallen</a></p>
       </div>
       <div class="pris">
         <div class="namn">Uppdateringar</div>
@@ -391,8 +391,8 @@
     <div class="steg">
       <div><b>Mejla</b><p>Skriv vilket bolag fakturan ska ställas till.</p></div>
       <div><b>Faktura</b><p>5 000 kr + moms, 10 dagars betalvillkor.</p></div>
-      <div><b>Licensnyckel</b><p>Kommer på mejl när fakturan är betald.</p></div>
-      <div><b>Ditt</b><p>Appen hämtar databasen vid första start. Sök, exportera, äg.</p></div>
+      <div><b>Leverans</b><p>Personlig nedladdningslänk på mejl när fakturan är betald.</p></div>
+      <div><b>Ditt</b><p>En fil — app och databas i ett. Sök, exportera, äg.</p></div>
     </div>
   </section>
 
@@ -405,7 +405,7 @@
       <details>
         <summary>Hur betalar jag?</summary>
         <p>Mot faktura, som företag gör. Mejla din beställning med bolagsnamn och orgnr så kommer
-        fakturan; när den är betald får du licensnyckel och nedladdningslänk på mejl. Inga kort,
+        fakturan; när den är betald får du en personlig nedladdningslänk på mejl. Inga kort,
         inga konton, ingen betalvägg.</p>
       </details>
       <details>
@@ -420,7 +420,8 @@
       </details>
       <details>
         <summary>Finns det till Windows?</summary>
-        <p>Mac först. Windows-versionen byggs när efterfrågan finns — säg till, så räknas din röst.</p>
+        <p>Ja. Appen finns till både macOS och Windows — säg vid beställningen vilken du vill ha,
+        eller båda. Samma köp, samma databas.</p>
       </details>
       <details>
         <summary>Hur färsk är datan när jag köper?</summary>
@@ -443,6 +444,19 @@
 
 <script>
   (function () {
+    // mejlklient saknas hos många — mallen ska gå att kopiera rakt av
+    var kopiera = document.getElementById("kopiera-mall");
+    if (kopiera) kopiera.addEventListener("click", function (e) {
+      e.preventDefault();
+      var mall = "Till: linus@spekt.se\nÄmne: Beställning Företagsdata\n\n" +
+                 "Bolag: \nOrgnr: \nFakturamejl: \nPlattform: Mac / Windows\n" +
+                 "Uppdateringar 2 000 kr/år: ja/nej";
+      function klart() { kopiera.textContent = "mallen kopierad ✓"; }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(mall).then(klart, function () {});
+      } else { window.prompt("Kopiera mallen:", mall); }
+    });
+
     var reducerad = matchMedia("(prefers-reduced-motion: reduce)").matches;
     var el = document.getElementById("stortal");
     var mal = parseInt(el.dataset.mal, 10);
