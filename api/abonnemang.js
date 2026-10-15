@@ -1,6 +1,11 @@
 // Appens värde-popup: en kund med databasen vill köpa abonnemanget.
 // Mejl till Linus är huvudkanalen; hubbspeglingen flaggar kundkortet.
 export default async function handler(req, res) {
+  // appens webview anropar cross-origin (tauri://) — öppen CORS krävs
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST") return res.status(405).json({ fel: "endast POST" });
   const { bolag, epost, orgnr, meddelande, honung } = req.body ?? {};
   if (honung) return res.status(200).json({ ok: true });
