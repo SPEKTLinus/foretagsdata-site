@@ -73,7 +73,7 @@ export default async function handler(req, res) {
   if (hubNyckel) {
     try {
       const hubSvar = await fetch(
-        "https://pcdrqbyxrgsfzykpocid.supabase.co/functions/v1/hub-api",
+        "https://yfofpybglztzonompndv.supabase.co/functions/v1/hub-api",
         {
           method: "POST",
           headers: {
