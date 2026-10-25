@@ -214,6 +214,8 @@
   .falt div { background: var(--kort); padding: 16px 18px; }
   .falt .f { font-weight: 600; font-size: 0.92rem; }
   .falt .d { font-size: 0.82rem; color: var(--black-svag); margin-top: 2px; }
+  .falt .bred { grid-column: 1 / -1; }
+  .falt .bred .d { max-width: 72ch; }
   .urval { margin-top: 26px; font-size: 0.92rem; max-width: 66ch; }
   .urval b { font-weight: 600; }
 
@@ -358,6 +360,9 @@
       <div><div class="f">Koordinater</div><div class="d">lat/lng på kartan för 1,44 miljoner företag</div></div>
       <div><div class="f">Bolagsform</div><div class="d">AB, HB, KB, föreningar, stiftelser, filialer</div></div>
       <div><div class="f">Registreringsdatum</div><div class="d">hitta nystartade — eller de som funnits i 50 år</div></div>
+      <div class="bred"><div class="f">Bokslut år för år</div><div class="d">omsättning, årets resultat, eget kapital och antal anställda för varje år bolaget lämnat
+      digital årsredovisning till Bolagsverket — och filtrera på bolag som växer. Bolag som lämnar årsredovisningen
+      på papper saknar siffror; nya bokslut fylls på varje månad.</div></div>
     </div>
     <p class="urval dov"><b>Medvetet bortvalt:</b> enskilda firmor (deras orgnr är personnummer — du slipper
     GDPR-risken), reklamspärrade företag (spärren respekteras) och bolag avregistrerade före 2015.
@@ -523,6 +528,12 @@
         <summary>Var kommer datan ifrån?</summary>
         <p>Bolagsverkets och SCB:s öppna värdefulla datamängder, kompletterade med egna berikningar:
         kommuner, län, koordinater och statusar i klartext.</p>
+      </details>
+      <details>
+        <summary>Varför saknar vissa företag bokslut?</summary>
+        <p>Bokslutssiffrorna kommer ur årsredovisningar som lämnats digitalt till Bolagsverket. Lämnar ett bolag
+        årsredovisningen på papper finns siffrorna inte som data hos Bolagsverket — och då saknas de också hos oss.
+        Vi hämtar nya bokslut varje månad, så andelen växer i takt med att fler bolag lämnar digitalt.</p>
       </details>
     </div>
   </section>
