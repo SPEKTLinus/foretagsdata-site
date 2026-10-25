@@ -153,6 +153,8 @@
   }
   .knapp:hover, .knapp:focus-visible { opacity: 0.88; }
   .knapp.tunn { background: transparent; color: var(--black); border-color: var(--linje-stark); }
+  button.knapp { cursor: pointer; font-family: inherit; }
+  button.knapp:disabled { opacity: 0.6; cursor: default; }
   .cta-rad .not { font-size: 0.85rem; color: var(--black-svag); }
   .mejlfallback { font-size: 0.8rem; color: var(--black-svag); margin: 0.6rem 0 0; }
   .mejlfallback a { color: inherit; text-decoration: underline; }
@@ -273,6 +275,7 @@
     <div class="ordmarke">Företagsdata <span>· SPEKT</span></div>
     <nav>
       <a href="#innehall">Vad ingår</a>
+      <a href="#prova">Prova gratis</a>
       <a href="#pris">Pris</a>
       <a href="#fragor">Frågor</a>
     </nav>
@@ -309,7 +312,7 @@
 
     <div class="cta-rad">
       <a class="knapp" href="#bestall">Beställ Företagsdata — 5 000 kr</a>
-      <a class="knapp tunn" href="#innehall">Se vad som ingår</a>
+      <a class="knapp tunn" href="#prova">Prova gratis i 14 dagar</a>
       <span class="not">ex moms · betalning mot faktura · macOS &amp; Windows</span>
     </div>
   </section>
@@ -372,6 +375,24 @@
     referensvärden — paketerat i en app som söker igenom hela registret på under en tiondels sekund.</p>
   </section>
 
+  <section class="block" id="prova">
+    <div class="blockhuvud">
+      <div class="nr">Prova gratis</div>
+      <h2>Prova appen i 14 dagar — utan kort, utan faktura</h2>
+    </div>
+    <div class="steg">
+      <div><b>Ladda ner</b><p>Appen för Mac eller Windows, med ett urval på drygt 47 000 företag.</p></div>
+      <div><b>Starta provet</b><p>Ange din e-post och välj <i>Prova gratis i 14 dagar</i>.</p></div>
+      <div><b>Testa på riktigt</b><p>Sök, filtrera och exportera — upp till 50 företag till Excel eller ditt CRM.</p></div>
+      <div><b>Köp när du vill</b><p>Hela databasen laddas ner i samma app. Inget att installera om.</p></div>
+    </div>
+    <div class="cta-rad">
+      <button class="knapp" type="button" data-hamta="publik-mac">Ladda ner för Mac</button>
+      <button class="knapp tunn" type="button" data-hamta="publik-win">Ladda ner för Windows</button>
+      <span class="not" id="prova-svar" role="status">macOS 10.15 eller senare · Windows 10/11</span>
+    </div>
+  </section>
+
   <section class="block" id="pris">
     <div class="blockhuvud">
       <div class="nr">Pris</div>
@@ -415,7 +436,7 @@
       <div><b>Beställ</b><p>Fyll i formuläret — skriv vilket bolag fakturan ska ställas till.</p></div>
       <div><b>Faktura</b><p>5 000 kr + moms, 10 dagars betalvillkor.</p></div>
       <div><b>Leverans</b><p>Personlig nedladdningslänk på mejl när fakturan är betald.</p></div>
-      <div><b>Ditt</b><p>En fil — app och databas i ett. Sök, exportera, äg.</p></div>
+      <div><b>Ditt</b><p>Välj <i>Jag har köpt</i> i appen — hela databasen laddas ner till din dator. Sök, exportera, äg.</p></div>
     </div>
   </section>
 
@@ -525,6 +546,26 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(mall).then(klart, function () {});
       } else { window.prompt("Kopiera mallen:", mall); }
+    });
+
+    // provappen: /api/uppdatering ger en tidsbegränsad länk till Mac- eller Windows-paketet
+    var provSvar = document.getElementById("prova-svar");
+    Array.prototype.forEach.call(document.querySelectorAll("[data-hamta]"), function (knapp) {
+      knapp.addEventListener("click", function () {
+        knapp.disabled = true;
+        fetch("/api/uppdatering", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ vad: knapp.getAttribute("data-hamta") })
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (d && d.url) { window.location.href = d.url; provSvar.textContent = "Nedladdningen startar …"; }
+            else { provSvar.textContent = (d && d.fel) || "Nedladdningen gick inte att starta. Mejla linus@spekt.se."; }
+          })
+          .catch(function () { provSvar.textContent = "Nedladdningen gick inte att starta. Mejla linus@spekt.se."; })
+          .then(function () { knapp.disabled = false; });
+      });
     });
 
     // beställningsformuläret → /api/bestall → mejl via Resend
