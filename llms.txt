@@ -53,7 +53,7 @@ Beställning via formuläret på https://foretagsdata.spekt.se/#bestall eller me
 
 ## Mer från SPEKT
 
-- [SPEKT](https://spekt.se): huvudsajten för SPEKT AB.
+- [SPEKT](https://spekt.se): huvudsajten för SPEKT AB. Sammanfattning: https://spekt.se/llms.txt
 - [Spaceview](https://www.spaceview.se): 3D-skanning av lokaler — mötesrum, konferensanläggningar och kontorshotell i 3D, och konferensförsäljning. Sammanfattning: https://www.spaceview.se/llms.txt
 - [Outreach](https://outreach.spekt.se): vi bokar kvalificerade möten åt B2B-bolag. Sammanfattning: https://outreach.spekt.se/llms.txt
 - [AI-boxen](https://aiboxen.spekt.se): lokal AI-dator där SPEKT är återförsäljare. Sammanfattning: https://aiboxen.spekt.se/llms.txt
