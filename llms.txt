@@ -1,0 +1,64 @@
+# Företagsdata
+
+> Företagsdata är en komplett, sökbar databas över alla Sveriges företag — levererad som en app för macOS och Windows med databasen lokalt på köparens egen dator. Inga konton, inga uppslagstak, ingen server som kan stängas av: köp en gång, använd för alltid. Produkten säljs av SPEKT AB (org.nr 559249-6847), Löttorp, Öland, Sverige. Huvudsajt: https://spekt.se
+
+## Produkten
+
+- **Databasen**: 1 488 329 svenska företag med status i klartext (aktiv, konkurs, likvidation, avregistrerad — med datum), SNI-kod och bransch, fritextsökbar verksamhetsbeskrivning, adress och ort, kommun och län, koordinater, bolagsform, registreringsdatum samt bokslut år för år (omsättning, årets resultat, eget kapital, antal anställda) för bolag som lämnat digital årsredovisning till Bolagsverket.
+- **Appen**: söker igenom hela registret på under en tiondels sekund, fungerar offline och exporterar obegränsat till CSV/Excel. macOS 10.15 eller senare, Windows 10/11.
+- **Källor**: Bolagsverkets och SCB:s officiella öppna datamängder, hämtade varje vecka, med ett eget förädlingslager: statusar i klartext, kommun- och länstillhörighet, koordinater, dubblettvättning och kvalitetskontroller.
+- **Medvetet bortvalt**: enskilda firmor (orgnr är personnummer), reklamspärrade företag, enkla bolag, familjestiftelser och bolag avregistrerade före 2015 — och inga telefonnummer eller e-postadresser.
+
+## Pris och upplägg
+
+- **Företagsdata**: 5 000 kr, engångsköp, ex moms. Hela databasen, appen för Mac och Windows, obegränsad export, fungerar offline för alltid.
+- **Uppdateringar** (frivilligt): 2 000 kr per år. Färsk databas varje månad — konkurser, likvidationer, adressbyten, nyregistrerade företag — och nya appfunktioner. Slutar kunden betala fortsätter appen och den senaste databasen att fungera; bara framtida uppdateringar upphör.
+- **Betalning**: mot faktura med 10 dagars betalvillkor, inga kortuppgifter. Nedladdningslänk på mejl när fakturan är betald.
+- **Gratisprov**: 7 dagar utan kort eller faktura, med ett urval på drygt 47 000 företag och export av upp till 50 företag. Köp sker i samma app.
+- Villkor: https://foretagsdata.spekt.se/villkor.html
+
+## Vanliga frågor
+
+### Hur betalar jag?
+
+Mot faktura, som företag gör. Beställ med bolagsnamn och orgnr så kommer fakturan; när den är betald får du en personlig nedladdningslänk på mejl. Inga kort, inga konton, ingen betalvägg.
+
+### Får jag använda datat kommersiellt?
+
+Ja — prospektering, analys, segmentering och utskick i din egen verksamhet. Det du inte får göra är att sälja databasen vidare som den är.
+
+### Hur är det med GDPR?
+
+Databasen innehåller företagsuppgifter från öppna myndighetskällor — inga personnummer, inga enskilda firmor, inga telefonnummer eller e-postadresser och inga c/o-namn eller lägenhetsnummer i adresserna. Reklamspärrade företag är bortfiltrerade. Som köpare blir du själv personuppgiftsansvarig för hur du använder datat.
+
+### Finns det till Windows?
+
+Ja. Appen finns till både macOS och Windows — välj plattform när du beställer.
+
+### Hur färsk är datan när jag köper?
+
+Databasen släpps i en ny version en gång i månaden, så den du får är som mest en månad gammal. Med uppdateringar får du varje ny version direkt i appen.
+
+### Var kommer datan ifrån?
+
+Bolagsverkets och SCB:s öppna värdefulla datamängder, kompletterade med egna berikningar: kommuner, län, koordinater och statusar i klartext.
+
+### Varför saknar vissa företag bokslut?
+
+Bokslutssiffrorna kommer ur årsredovisningar som lämnats digitalt till Bolagsverket. Lämnar ett bolag årsredovisningen på papper finns siffrorna inte som data hos Bolagsverket — och då saknas de också hos oss. Nya bokslut hämtas varje månad.
+
+## Kontakt
+
+Beställning via formuläret på https://foretagsdata.spekt.se/#bestall eller mejl till linus@spekt.se.
+
+## Mer från SPEKT
+
+- [SPEKT](https://spekt.se): huvudsajten för SPEKT AB.
+- [Spaceview](https://www.spaceview.se): 3D-skanning av lokaler — mötesrum, konferensanläggningar och kontorshotell i 3D, och konferensförsäljning. Sammanfattning: https://www.spaceview.se/llms.txt
+- [Outreach](https://outreach.spekt.se): vi bokar kvalificerade möten åt B2B-bolag. Sammanfattning: https://outreach.spekt.se/llms.txt
+- [AI-boxen](https://aiboxen.spekt.se): lokal AI-dator där SPEKT är återförsäljare. Sammanfattning: https://aiboxen.spekt.se/llms.txt
+
+## Optional
+
+- [Integritetspolicy](https://foretagsdata.spekt.se/integritet.html)
+- [Allmänna villkor](https://foretagsdata.spekt.se/villkor.html)

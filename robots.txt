@@ -1,0 +1,29 @@
+# Företagsdata (SPEKT AB) — alla sökmotorer och AI-tjänster är välkomna att läsa och citera sajten.
+# Sammanfattning för AI-tjänster: https://foretagsdata.spekt.se/llms.txt
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sökmotorer och AI-crawlers (uttryckligen tillåtna)
+User-agent: Googlebot
+User-agent: Google-Extended
+User-agent: Bingbot
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: CCBot
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /api/
+
+Sitemap: https://foretagsdata.spekt.se/sitemap.xml
