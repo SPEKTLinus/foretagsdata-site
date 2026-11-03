@@ -1,6 +1,6 @@
 # Företagsdata
 
-> Företagsdata är en komplett, sökbar databas över alla Sveriges företag — levererad som en app för macOS och Windows med databasen lokalt på köparens egen dator. Inga konton, inga uppslagstak, ingen server som kan stängas av: köp en gång, använd för alltid. Produkten säljs av SPEKT AB (org.nr 559249-6847), Löttorp, Öland, Sverige. Huvudsajt: https://spekt.se
+> Företagsdata är en komplett, sökbar databas över alla Sveriges företag — levererad som en app för macOS och Windows med databasen lokalt på köparens egen dator. Inga konton, inga uppslagstak, ingen server som kan stängas av: köp en gång, använd för alltid. Produkten säljs av Spekt AB (org.nr 559249-6847), Löttorp, Öland, Sverige. Huvudsajt: https://spekt.se
 
 ## Produkten
 
@@ -51,12 +51,12 @@ Bokslutssiffrorna kommer ur årsredovisningar som lämnats digitalt till Bolagsv
 
 Beställning via formuläret på https://foretagsdata.spekt.se/#bestall eller mejl till linus@spekt.se.
 
-## Mer från SPEKT
+## Mer från Spekt
 
-- [SPEKT](https://spekt.se): huvudsajten för SPEKT AB. Sammanfattning: https://spekt.se/llms.txt
+- [Spekt](https://spekt.se): huvudsajten för Spekt AB. Sammanfattning: https://spekt.se/llms.txt
 - [Spaceview](https://www.spaceview.se): 3D-skanning av lokaler — mötesrum, konferensanläggningar och kontorshotell i 3D, och konferensförsäljning. Sammanfattning: https://www.spaceview.se/llms.txt
 - [Outreach](https://outreach.spekt.se): vi bokar kvalificerade möten åt B2B-bolag. Sammanfattning: https://outreach.spekt.se/llms.txt
-- [AI-boxen](https://aiboxen.spekt.se): lokal AI-dator där SPEKT är återförsäljare. Sammanfattning: https://aiboxen.spekt.se/llms.txt
+- [AI-boxen](https://aiboxen.spekt.se): lokal AI-dator där Spekt är återförsäljare. Sammanfattning: https://aiboxen.spekt.se/llms.txt
 
 ## Optional
 

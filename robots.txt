@@ -1,4 +1,4 @@
-# Företagsdata (SPEKT AB) — alla sökmotorer och AI-tjänster är välkomna att läsa och citera sajten.
+# Företagsdata (Spekt AB) — alla sökmotorer och AI-tjänster är välkomna att läsa och citera sajten.
 # Sammanfattning för AI-tjänster: https://foretagsdata.spekt.se/llms.txt
 
 User-agent: *

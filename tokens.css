@@ -1,0 +1,166 @@
+/* Spekt – gemensamt utseende för foretagsdata.spekt.se.
+   Typsnitt, färgtokens och grundformer enligt designsystemet Spekt (tokens.json, teman light och dark).
+   Används av alla sidor, även de arkiverade villkorsversionerna. Ändra utseendet här, aldrig i deras text. */
+
+@font-face {
+  font-family: "Familjen Grotesk";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/typsnitt/familjen-grotesk-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Spline Sans Mono";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/typsnitt/spline-sans-mono-latin.woff2") format("woff2");
+}
+
+/* ---------- tokens: tema light ---------- */
+:root {
+  color-scheme: light;
+  --papper: #F7F4EE;
+  --kort: #FDFCF9;
+  --yta-tonad: #EFEBE2;
+  --text: #17223A;
+  --text-svag: #555E70;
+  --linje: #DDD8CC;
+  --linje-stark: #B8B2A4;
+  --kontroll: #7D7767;
+  --brand: #17223A;
+  --on-brand: #F7F4EE;
+  --signal: #E8483A;
+  --on-signal: #16171A;
+  --markering: #F4A097;
+  --on-markering: #17223A;
+  --lank: #17223A;
+  --fokus: #17223A;
+  --aktiv-bg: #DEEFE3;
+  --aktiv-text: #1E5C38;
+  --fel-bg: #F8E2DA;
+  --fel-text: #96321B;
+
+  --bas-blak: #17223A;
+  --bas-rod: #E8483A;
+  --bas-lax: #F4A097;
+  --bas-papper: #F7F4EE;
+  --bas-natt: #12161F;
+
+  --font-sans: "Familjen Grotesk", system-ui, sans-serif;
+  --font-mono: "Spline Sans Mono", ui-monospace, Menlo, monospace;
+
+  --radius-sm: 3px;
+  --radius-full: 999px;
+
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px;
+  --space-8: 32px; --space-12: 48px; --space-18: 72px; --space-24: 96px;
+}
+
+/* ---------- tokens: tema dark (följer systemet, eller data-theme="dark") ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --papper: #12161F;
+    --kort: #1A1F2B;
+    --yta-tonad: #222836;
+    --text: #EDEAE2;
+    --text-svag: #A3ABB9;
+    --linje: #2A3140;
+    --linje-stark: #3B4356;
+    --kontroll: #7A8498;
+    --brand: #EDEAE2;
+    --on-brand: #12161F;
+    --signal: #E8483A;
+    --on-signal: #16171A;
+    --markering: #F4A097;
+    --on-markering: #12161F;
+    --lank: #EDEAE2;
+    --fokus: #F4A097;
+    --aktiv-bg: #1C3A29;
+    --aktiv-text: #8FD3A8;
+    --fel-bg: #46251F;
+    --fel-text: #F4AD99;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --papper: #12161F;
+  --kort: #1A1F2B;
+  --yta-tonad: #222836;
+  --text: #EDEAE2;
+  --text-svag: #A3ABB9;
+  --linje: #2A3140;
+  --linje-stark: #3B4356;
+  --kontroll: #7A8498;
+  --brand: #EDEAE2;
+  --on-brand: #12161F;
+  --signal: #E8483A;
+  --on-signal: #16171A;
+  --markering: #F4A097;
+  --on-markering: #12161F;
+  --lank: #EDEAE2;
+  --fokus: #F4A097;
+  --aktiv-bg: #1C3A29;
+  --aktiv-text: #8FD3A8;
+  --fel-bg: #46251F;
+  --fel-text: #F4AD99;
+}
+
+/* ---------- grund ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; background: var(--papper); color: var(--text); }
+body {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+::selection { background: var(--markering); color: var(--on-markering); }
+a { color: var(--lank); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
+textarea:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--fokus); outline-offset: 2px;
+}
+
+/* ---------- logotyp: Spekt-logotypen följd av produktnamnet ---------- */
+.logga {
+  display: inline-flex; align-items: center; gap: .32em;
+  font-size: var(--h, 36px); color: var(--text); text-decoration: none;
+}
+.logga img { display: block; height: 1em; width: auto; }
+.logga .logga__mork { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .logga .logga__ljus { display: none; }
+  :root:not([data-theme="light"]) .logga .logga__mork { display: block; }
+}
+:root[data-theme="dark"] .logga .logga__ljus { display: none; }
+:root[data-theme="dark"] .logga .logga__mork { display: block; }
+.logga__namn { font-family: var(--font-sans); font-size: .5em; line-height: 1; font-weight: 400; }
+
+/* ---------- text ---------- */
+.etikett, .oga {
+  font-family: var(--font-mono); font-size: 12px; line-height: 1.5; font-weight: 500;
+  letter-spacing: 1.1px; text-transform: uppercase; color: var(--text-svag);
+}
+.markering, mark {
+  background-color: var(--markering); color: var(--on-markering);
+  padding: 0 .12em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.siffra, .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.siffra { font-size: .94em; }
+
+/* fyrkantiga punkter */
+.lista { list-style: none; margin: 0; padding: 0; }
+.lista li { position: relative; padding-left: 18px; }
+.lista li::before {
+  content: ""; position: absolute; left: 0; top: .55em; width: 7px; height: 7px; background: var(--aktiv-text);
+}
+.lista--neutral li::before { background: var(--text-svag); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { transition: none !important; }
+}
