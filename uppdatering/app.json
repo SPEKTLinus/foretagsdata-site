@@ -1,7 +1,7 @@
 {
-  "version": "1.4.8",
-  "pub_date": "2026-11-13T11:03:58+00:00",
+  "version": "1.4.9",
+  "pub_date": "2026-11-13T15:01:29+00:00",
   "notes": "Ny version av SPEKT Företagsdata.",
-  "nyckel": "app/uppdateringar/SPEKT-Foretagsdata-1.4.8-universal.app.tar.gz",
-  "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRMDJweUpyeEVSZHVCak9TY2RMYWF6b2hkVjN2TzFNMnRiZHRWdy8yOTFTRFdwL1BIYjd1dmh6NGxTeHVBbEFNVEpLRjBoSyt0UHdqM0NnalRtSzRPRzNEREtDOVlvS2dFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NTY3NzUxCWZpbGU6U1BFS1QgRsO2cmV0YWdzZGF0YS5hcHAudGFyLmd6CmxOY1dyeUFIb294SzA4SDlSYXc1a1lyM1U5a3NuRzI1aXdIL2JUS0wvclkxWVBCVkZDbVIzNDNoV2hHZ2J6WWJLdkJIZGxDUkZ3cUZtNXA2UE8vYUJRPT0K"
+  "nyckel": "app/uppdateringar/SPEKT-Foretagsdata-1.4.9-universal.app.tar.gz",
+  "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRMDJweUpyeEVSZHNwMjlUY2xaQVM1Y0puYVRrdmcxdHdvam5BVk1KaUFxVUwweVBhSG9TYnRpV3lIYWtEWVpKTjdnTXpBMXhYeWFQZ3Rlb28wR0VtSjFxUjRUT2M1SlFZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NTgyMDM3CWZpbGU6U1BFS1QgRsO2cmV0YWdzZGF0YS5hcHAudGFyLmd6CmJuTVlTNWNPL3NYaEpiL0FiYW0wUnlXZnExSzNQV3h0SlRqM0lLUUo4TzhBSjd3cjRzaXh2SUR5VkdCaGF2Y3ZlM2JrRUc3cU1NZnFwYVoxUG5pUUNnPT0K"
 }
